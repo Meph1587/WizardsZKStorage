@@ -19,7 +19,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     const deployer = new Deployer(hre, wallet);
 
    
-    const grimoireArtifact = await deployer.loadArtifact("Grimoire");
+    const grimoireArtifact = await deployer.loadArtifact("GrimoireStore");
 
     let l2Balance = ((await deployer.zkWallet.getBalance()).toString() );
     let l2Address= ((await deployer.zkWallet.getAddress()).toString() );
@@ -63,10 +63,15 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
     console.log("deploying")
     // code stalls here
-    const grimoire = await deployer.deploy(grimoireArtifact, [traitsTreeRoot, namesTreeRoot]) //as Grimoire;
-    console.log(`Grimoire deployed to: ${grimoire.address.toLowerCase()}`);
+    let grimoire;
+    try {
+        grimoire = await deployer.deploy(grimoireArtifact, [traitsTreeRoot, namesTreeRoot])
+        console.log(grimoire.address)
+    }catch (e) {
+            console.log(e)
+    }
+    //console.log(`Grimoire deployed to: ${grimoire.address.toLowerCase()}`);
     
-    console.log(`Grimoire deployed to: ${grimoire.address.toLowerCase()}`);
     
 
 

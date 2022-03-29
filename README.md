@@ -86,9 +86,6 @@ Install dependencies
 Run Decoder to generate source files  
 `yarn decode`
 
-Run tests  
-`yarn test`
-
 Add Private Key
 `export PRIVATE_KEY=<your-key>`
 

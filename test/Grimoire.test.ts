@@ -1,6 +1,6 @@
 import { deployContract } from "../scripts/helpers/deploy";
 import { expect } from "chai";
-import { Grimoire} from "../typechain";
+import { GrimoireStore, GrimoireProxy} from "../typechain";
 
 import { splitToChunks} from "../scripts/helpers/lists";
 import { makeTreeFromTraits,makeTreeFromNames} from "../scripts/helpers/merkletree";
@@ -14,7 +14,7 @@ const traitsToAffinities = require("../data/affinities.json");
 
 // TO BE UPDATED
 describe("Grimoire", function () {
-    let storage: Grimoire;
+    let storage: GrimoireStore;
     let wizards: number[]
     let traitsForWizards: number[][];
     let traits: number[];
@@ -28,7 +28,7 @@ describe("Grimoire", function () {
         traitsForWizards = wizardsToTraits.traits;
         treeTraits = await makeTreeFromTraits(traitsForWizards);
         treeNames = await makeTreeFromNames( wizardsToTraits.names);
-        storage = (await deployContract('Grimoire', [treeTraits.getHexRoot(), treeNames.getHexRoot()])) as Grimoire;
+        storage = (await deployContract('GrimoireStore', [treeTraits.getHexRoot(), treeNames.getHexRoot()])) as Grimoire;
         wizards = wizardsToTraits.wizards;
 
         traits = traitsToAffinities.traits;
